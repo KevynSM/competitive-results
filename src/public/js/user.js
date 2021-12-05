@@ -67,3 +67,114 @@ function login() {
         status.innerHTML = `Error: ${error}`;
     });
 };
+
+async function getCSGO() {
+    const url = "http://localhost:8080";
+    const token = localStorage.token;
+    console.log(token);
+
+    fetch(`${urlBase}/authenticate`, {
+        headers: {
+            "content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`
+        },
+        method: "GET",
+        
+    })
+    .then(async (response) => {
+        console.log(`response status: ${response.status}`);
+        if(!response.status === 200) {
+
+        }
+        else {
+            console.log("Time to fecth csgo");
+            await fetch(`${url}/csgo`, {
+                headers: {
+                    "content-Type": "application/x-www-form-urlencoded"
+                },
+                method: "GET",
+            })
+            .then(async data => {
+                console.log("DATA DO CSGO:");
+                const csgoData = await data.json() 
+                console.log(csgoData);
+            })
+        }
+        
+    
+    });    
+}
+
+async function getVava() {
+    const url = "http://localhost:8080";
+    const token = localStorage.token;
+    console.log(token);
+
+    fetch(`${urlBase}/authenticate`, {
+        headers: {
+            "content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`
+        },
+        method: "GET",
+        
+    })
+    .then(async (response) => {
+        console.log(`response status: ${response.status}`);
+        if(!response.status === 200) {
+
+        }
+        else {
+            console.log("Time to fecth vava");
+            await fetch(`${url}/vava`, {
+                headers: {
+                    "content-Type": "application/x-www-form-urlencoded"
+                },
+                method: "GET",
+            })
+            .then(async data => {
+                console.log("DATA DO vava:");
+                const vavaData = await data.json() 
+                console.log(vavaData);
+            })
+        }
+        
+    
+    });    
+}
+
+async function getOverw() {
+    const url = "http://localhost:8080";
+    const token = localStorage.token;
+    console.log(token);
+
+    fetch(`${urlBase}/authenticate`, {
+        headers: {
+            "content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`
+        },
+        method: "GET",
+        
+    })
+    .then(async (response) => {
+        console.log(`response status: ${response.status}`);
+        if(!response.status === 200) {
+
+        }
+        else {
+            console.log("Time to fecth overw");
+            await fetch(`${url}/overw`, {
+                headers: {
+                    "content-Type": "application/x-www-form-urlencoded"
+                },
+                method: "GET",
+            })
+            .then(async data => {
+                console.log("DATA DO overw:");
+                const overwData = await data.json() 
+                console.log(overwData);
+            })
+        }
+        
+    
+    });    
+}
