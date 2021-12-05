@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({path: "../.env"});
 const db = require("../models/nedb");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");

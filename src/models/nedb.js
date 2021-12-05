@@ -1,5 +1,5 @@
 const Datastore = require("nedb");
-db = new Datastore("users.db");
+db = new Datastore("../users.db");
 db.loadDatabase();
 
 exports.crudRegister = (email, password) => {
