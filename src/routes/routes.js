@@ -7,5 +7,7 @@ module.exports = app => {
 
     router.post("/register", controller.register);
 
+    router.get("/authenticate", controller.authenticateToken);
+
     app.use("/", router);
 }
