@@ -73,6 +73,17 @@ async function getCSGO() {
     const token = localStorage.token;
     console.log(token);
 
+    const thead = document.querySelector("thead");
+    const tbody = document.querySelector("tbody");
+
+    let text = `
+        <tr>          
+            <th colspan="5" scope="col">CSGO</th>
+        </tr>
+    `;
+    thead.innerHTML = text;
+    text = "";
+
     fetch(`${urlBase}/authenticate`, {
         headers: {
             "content-Type": "application/x-www-form-urlencoded",
@@ -83,8 +94,13 @@ async function getCSGO() {
     })
     .then(async (response) => {
         console.log(`response status: ${response.status}`);
-        if(!response.status === 200) {
-
+        if(response.status !== 200) {
+            text += `
+                <tr>                    
+                    <td>Only for registred users.</td>
+                </tr>
+            `;
+            tbody.innerHTML = text;
         }
         else {
             console.log("Time to fecth csgo");
@@ -95,20 +111,45 @@ async function getCSGO() {
                 method: "GET",
             })
             .then(async data => {
-                console.log("DATA DO CSGO:");
                 const csgoData = await data.json() 
-                console.log(csgoData);
+        
+                for(let key of Object.keys(csgoData)) {                   
+                    for(let obj of csgoData[key]) {
+                        text += `
+                        <tr>
+                            <td>${key.toString().slice(12)}</td>
+                            <td>${obj.teamWon}</td>
+                            <td>${obj.scoreWon} - ${obj.scoreLost}</td>
+                            <td>${obj.teamLost}</td>
+                            <td>${obj.eventName}</td>
+                        </tr>
+                    `;
+                    }
+                }
+                tbody.innerHTML = text;
             })
+            .catch(error => console.log);
         }
         
     
-    });    
+    }).catch(error => console.log);;    
 }
 
 async function getVava() {
     const url = "http://localhost:8080";
     const token = localStorage.token;
     console.log(token);
+
+    const thead = document.querySelector("thead");
+    const tbody = document.querySelector("tbody");
+
+    let text = `
+        <tr>          
+            <th colspan="5" scope="col">Valorant</th>
+        </tr>
+    `;
+    thead.innerHTML = text;
+    text = "";
 
     fetch(`${urlBase}/authenticate`, {
         headers: {
@@ -119,9 +160,14 @@ async function getVava() {
         
     })
     .then(async (response) => {
-        console.log(`response status: ${response.status}`);
-        if(!response.status === 200) {
-
+        console.log(`response status: ${response.status}`);        
+        if(response.status !== 200) {
+            text += `
+                <tr>                    
+                    <td>Only for registred users.</td>
+                </tr>
+            `;
+            tbody.innerHTML = text;
         }
         else {
             console.log("Time to fecth vava");
@@ -131,15 +177,28 @@ async function getVava() {
                 },
                 method: "GET",
             })
-            .then(async data => {
-                console.log("DATA DO vava:");
+            .then(async data => {                
                 const vavaData = await data.json() 
-                console.log(vavaData);
-            })
-        }
         
+                for(let key of Object.keys(vavaData)) {                   
+                    for(let obj of vavaData[key]) {
+                        text += `
+                        <tr>
+                            <td>${key}</td>
+                            <td>${obj.teamWon}</td>
+                            <td>${obj.scoreWon} - ${obj.scoreLost}</td>
+                            <td>${obj.teamLost}</td>
+                            <td>${obj.eventName}</td>
+                        </tr>
+                    `;
+                    }
+                }
+                tbody.innerHTML = text;
+            }).catch(error => console.log);
+        }
+            
     
-    });    
+    }).catch(error => console.log);;    
 }
 
 async function getOverw() {
@@ -147,34 +206,72 @@ async function getOverw() {
     const token = localStorage.token;
     console.log(token);
 
-    fetch(`${urlBase}/authenticate`, {
+    const thead = document.querySelector("thead");
+    const tbody = document.querySelector("tbody");
+
+    console.log("Time to fecth overw");
+    await fetch(`${url}/overw`, {
         headers: {
-            "content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Bearer ${token}`
+            "content-Type": "application/x-www-form-urlencoded"
         },
         method: "GET",
-        
     })
-    .then(async (response) => {
-        console.log(`response status: ${response.status}`);
-        if(!response.status === 200) {
-
-        }
-        else {
-            console.log("Time to fecth overw");
-            await fetch(`${url}/overw`, {
-                headers: {
-                    "content-Type": "application/x-www-form-urlencoded"
-                },
-                method: "GET",
-            })
-            .then(async data => {
-                console.log("DATA DO overw:");
-                const overwData = await data.json() 
-                console.log(overwData);
-            })
-        }
+    .then(async data => {
+        console.log("DATA DO overw:");
+        const overwData = await data.json()         
         
-    
-    });    
+        let text = `
+            <tr>          
+                <th colspan="5" scope="col">Overwatch</th>
+            </tr>
+        `;
+        thead.innerHTML = text;
+
+        text = "";
+
+        for(let key of Object.keys(overwData)) {
+            console.log(key);
+            for(let obj of overwData[key]) {
+                text += `
+                <tr>
+                    <td>${key}</td>
+                    <td>${obj.teamWon}</td>
+                    <td>${obj.scoreWon} - ${obj.scoreLost}</td>
+                    <td>${obj.teamLost}</td>
+                    <td>${obj.eventName}</td>
+                </tr>
+            `;
+            }
+            
+        }        
+        tbody.innerHTML = text;
+    })
+    .catch(error => console.log);
+}
+
+window.onload = () => {
+    const table = document.querySelector("table");
+    table.innerHTML = `
+        <thead>
+            <th colspan="5" scope="col">Loading...</th>
+        </thead>
+        <tbody></tbody>
+    `;
+    getOverw();
+}
+
+const navLinks = document.querySelectorAll(".nav-link");
+navLinks.forEach(navLink => {
+    navLink.addEventListener("click", function() {
+        this.classList.toggle("active");
+        disableAll(this);
+    })
+})
+
+const disableAll = (notThis) => {
+    navLinks.forEach((navLink) => {
+        if(navLink !== notThis) {
+            navLink.classList.remove("active");
+        }
+    })
 }

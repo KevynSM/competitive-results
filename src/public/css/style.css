@@ -2,6 +2,10 @@
     margin-top: 50px;
 }
 
+.table {
+    margin-top: 5rem;
+}
+
 .table td, th {
     text-align: center;   
  }
