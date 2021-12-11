@@ -97,7 +97,7 @@ async function getCSGO() {
         if(response.status !== 200) {
             text += `
                 <tr>                    
-                    <td>Only for registred users.</td>
+                    <td>Only for registered users.</td>
                 </tr>
             `;
             tbody.innerHTML = text;
@@ -164,7 +164,7 @@ async function getVava() {
         if(response.status !== 200) {
             text += `
                 <tr>                    
-                    <td>Only for registred users.</td>
+                    <td>Only for registered users.</td>
                 </tr>
             `;
             tbody.innerHTML = text;
