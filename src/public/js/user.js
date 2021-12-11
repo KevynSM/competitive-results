@@ -25,7 +25,6 @@ function register() {
             throw new Error(error);
         }
         const result = await response.json();
-        console.log(result.message);
         status.innerHTML = result.message;
     })
     .catch((error) => {
@@ -33,8 +32,7 @@ function register() {
     })
 }
 
-function login() {
-    console.log("Inside user.login()");
+function login() {    
     const email = document.querySelector("#emailLogin").value;
     const password = document.querySelector("#passwordLogin").value;
     const status = document.querySelector("#statusLogin");    
@@ -59,7 +57,6 @@ function login() {
         }
         const result = await response.json();
         const token = result.acessToken;
-        console.log(token);
         localStorage.setItem("token", token);
         status.innerHTML = "Success!";
     })
@@ -70,8 +67,7 @@ function login() {
 
 async function getCSGO() {
     const url = "http://localhost:8080";
-    const token = localStorage.token;
-    console.log(token);
+    const token = localStorage.token;    
 
     const thead = document.querySelector("thead");
     const tbody = document.querySelector("tbody");
@@ -93,7 +89,6 @@ async function getCSGO() {
         
     })
     .then(async (response) => {
-        console.log(`response status: ${response.status}`);
         if(response.status !== 200) {
             text += `
                 <tr>                    
@@ -103,7 +98,6 @@ async function getCSGO() {
             tbody.innerHTML = text;
         }
         else {
-            console.log("Time to fecth csgo");
             await fetch(`${url}/csgo`, {
                 headers: {
                     "content-Type": "application/x-www-form-urlencoded"
@@ -137,8 +131,7 @@ async function getCSGO() {
 
 async function getVava() {
     const url = "http://localhost:8080";
-    const token = localStorage.token;
-    console.log(token);
+    const token = localStorage.token;    
 
     const thead = document.querySelector("thead");
     const tbody = document.querySelector("tbody");
@@ -160,7 +153,6 @@ async function getVava() {
         
     })
     .then(async (response) => {
-        console.log(`response status: ${response.status}`);        
         if(response.status !== 200) {
             text += `
                 <tr>                    
@@ -170,7 +162,6 @@ async function getVava() {
             tbody.innerHTML = text;
         }
         else {
-            console.log("Time to fecth vava");
             await fetch(`${url}/vava`, {
                 headers: {
                     "content-Type": "application/x-www-form-urlencoded"
@@ -203,13 +194,11 @@ async function getVava() {
 
 async function getOverw() {
     const url = "http://localhost:8080";
-    const token = localStorage.token;
-    console.log(token);
+    const token = localStorage.token;    
 
     const thead = document.querySelector("thead");
     const tbody = document.querySelector("tbody");
-
-    console.log("Time to fecth overw");
+    
     await fetch(`${url}/overw`, {
         headers: {
             "content-Type": "application/x-www-form-urlencoded"
@@ -217,7 +206,6 @@ async function getOverw() {
         method: "GET",
     })
     .then(async data => {
-        console.log("DATA DO overw:");
         const overwData = await data.json()         
         
         let text = `
@@ -230,7 +218,6 @@ async function getOverw() {
         text = "";
 
         for(let key of Object.keys(overwData)) {
-            console.log(key);
             for(let obj of overwData[key]) {
                 text += `
                 <tr>

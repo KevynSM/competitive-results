@@ -11,12 +11,14 @@ An Web App with an Login system to show data received from the Competitive Resul
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [nedb](https://www.npmjs.com/package/nedb)
 
 # Getting started
 
 ## Pre-requisites
+- [Competitive Results API](https://github.com/KevynSM/competitive-results-api)
 - Install [Node.js](https://nodejs.org/en/)
-- Run [Competitive Results API](https://github.com/KevynSM/competitive-results-api)
 
 
 ## Installation
@@ -38,6 +40,11 @@ node index.js
 
 
 # Screenshots
+## Sign-up
+![](images/CompetitiveResults_4.png)
+
+## Login
+![](images/CompetitiveResults_3.png)
 
 ## Without Login
 
