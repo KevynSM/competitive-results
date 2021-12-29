@@ -1,5 +1,5 @@
 # Competitive Results
-An Web App with an Login system to show data received from the Competitive Results API.
+A Web App with an Login system to show data received from the Competitive Results API.
 
 # Built with
 
